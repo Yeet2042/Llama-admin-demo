@@ -1,0 +1,33 @@
+{
+  "name": "llama-admin-be",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "llama-admin-be/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "llama-admin-be:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "llama-admin-be:build:development"
+        },
+        "production": {
+          "buildTarget": "llama-admin-be:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "llama-admin-be/jest.config.ts"
+      }
+    }
+  }
+}

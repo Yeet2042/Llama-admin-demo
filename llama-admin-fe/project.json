@@ -1,0 +1,91 @@
+{
+  "name": "llama-admin-fe",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "llama-admin-fe/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/llama-admin-fe",
+        "index": "llama-admin-fe/src/index.html",
+        "browser": "llama-admin-fe/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "llama-admin-fe/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "llama-admin-fe/public"
+          }
+        ],
+        "styles": ["llama-admin-fe/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "llama-admin-fe:build:production"
+        },
+        "development": {
+          "buildTarget": "llama-admin-fe:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "llama-admin-fe/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "llama-admin-fe:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "llama-admin-fe/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "llama-admin-fe:build",
+        "staticFilePath": "dist/llama-admin-fe/browser",
+        "spa": true
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+services:
+  ollama:
+    image: ollama/ollama:0.3.12
+    container_name: ollama
+    restart: always
+    pull_policy: "always"
+    ports:
+      - "11435:11434"
+    volumes:
+      - ollama-llama-admin:/root/.ollama
+      - ./docker/pull.sh:/pull.sh
+    networks:
+      - llama-network
+    entrypoint: ["/usr/bin/bash", "/pull.sh"]
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: llama-admin
+    volumes:
+      - postgres-llama-admin:/var/lib/postgresql/data
+    networks:
+      - llama-network
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+    volumes:
+      - pgadmin-llama-admin:/var/lib/pgadmin
+    networks:
+      - llama-network
+volumes:
+  ollama-llama-admin:
+  postgres-llama-admin:
+  pgadmin-llama-admin:
+networks:
+  llama-network:
+    driver: bridge

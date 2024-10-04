@@ -11,12 +11,12 @@ export class AdminService  {
        where: { role: 'ADMIN' }
     });
 
+    const adminEmail = process.env.ADMIN_EMAIL
+    const adminUsername = process.env.ADMIN_USERNAME
+    const adminPassword = process.env.ADMIN_PASSWORD
+
     if (!admin) {
       console.log("Creating Admin user...");
-
-      const adminEmail = process.env.ADMIN_EMAIL
-      const adminUsername = process.env.ADMIN_USERNAME
-      const adminPassword = process.env.ADMIN_PASSWORD
 
       const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
@@ -29,6 +29,9 @@ export class AdminService  {
         }
       })
 
+      console.log(`Admin username: ${adminUsername}\nAdmin password: ${adminPassword}`);
+    }
+    else {
       console.log(`Admin username: ${adminUsername}\nAdmin password: ${adminPassword}`);
     }
   }

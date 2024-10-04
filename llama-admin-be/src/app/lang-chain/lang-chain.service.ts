@@ -15,19 +15,19 @@ export class LangChainService {
     });
   }
 
-  async getAIResponse(question: string) {
-    const prompt = ChatPromptTemplate.fromMessages([
+  async getAIResponse(prompt: string) {
+    const promptTemplate = ChatPromptTemplate.fromMessages([
       [
         "system",
-        "You are an admin named 'Watt-D' who manages a system called PEA Workflow, which manages budget data received from human and will only respond in Thai."
+        "You are an admin named 'Watt-D', a man who manages a system called PEA Workflow, which manages budget data received from human and will only respond in Thai."
       ],
-      [ "human", "{question}" ]
+      [ "human", "{prompt}" ]
     ])
 
-    const chain = prompt.pipe(this.chatOllama);
+    const chain = promptTemplate.pipe(this.chatOllama);
 
     const res = await chain.invoke({
-      question
+      prompt
     })
 
     return res;

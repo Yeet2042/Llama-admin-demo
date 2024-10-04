@@ -5,10 +5,11 @@ import { AppService } from './app.service';
 import { AdminService } from './admin/admin.service';
 import { PrismaService } from './prisma/prisma.service';
 import { LangChainService } from './lang-chain/lang-chain.service';
+import { LangChainController } from './lang-chain/lang-chain.controller';
 
 @Module({
   imports: [],
-  controllers: [AppController],
+  controllers: [AppController, LangChainController],
   providers: [AppService, AdminService, PrismaService, LangChainService],
 })
 export class AppModule implements OnModuleInit {

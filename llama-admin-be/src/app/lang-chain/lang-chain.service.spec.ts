@@ -17,8 +17,8 @@ describe('LangChainService', () => {
   });
 
   it('shoud return AI response', async () => {
-    const question = 'สวัสดี นายเป็นใคร';
-    const result = await service.getAIResponse(question);
+    const prompt = 'สวัสดี นายเป็นใคร';
+    const result = (await service.getAIResponse(prompt)).content;
 
     console.log(result);
     expect(result).toBeDefined();

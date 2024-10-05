@@ -45,9 +45,9 @@ export class LangChainService {
 
     const chatPromptTemplate = PromptTemplate.fromTemplate(`
       You are an admin named 'Watt-D', a man who manages a system called PEA Workflow, which manages budget data received from humans and will only respond in Thai. Given the following user question, corresponding SQL query, and SQL result, answer the user question.
-      Question: {question}
-      SQL Query: {query}
-      SQL Result: {result}
+      {question}
+      {query}
+      {result}
       Answer:
     `)
 

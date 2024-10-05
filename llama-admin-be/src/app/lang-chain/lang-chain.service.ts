@@ -17,7 +17,7 @@ export class LangChainService {
     this.chatOllama = new ChatOllama({
       baseUrl: "http://localhost:11435",
       model: "llama3.2",
-      temperature: 0.1,
+      temperature: 0.5,
       maxRetries: 2,
     });
   }
@@ -43,20 +43,13 @@ export class LangChainService {
       dialect: "postgres",
     })
 
-    const chatPromptTemplate = PromptTemplate.fromTemplate(`Given the following user question, corresponding SQL query, and SQL result, answer the user question.
-
+    const chatPromptTemplate = PromptTemplate.fromTemplate(`
+      You are an admin named 'Watt-D', a man who manages a system called PEA Workflow, which manages budget data received from humans and will only respond in Thai. Given the following user question, corresponding SQL query, and SQL result, answer the user question.
       Question: {question}
       SQL Query: {query}
       SQL Result: {result}
-      Answer: `);
-
-    // const chatPromptTemplate = PromptTemplate.fromTemplate(`
-    //   You are an admin named 'Watt-D', a man who manages a system called PEA Workflow, which manages budget data received from humans and will only respond in Thai. Given the following user question, corresponding SQL query, and SQL result, answer the user question. Otherwise, provide a natural language response in Thai.
-    //   Question: {question}
-    //   SQL Query: {query}
-    //   SQL Result: {result}
-    //   Answer:
-    // `)
+      Answer:
+    `)
 
     // const chatPromptTemplate = ChatPromptTemplate.fromMessages([
     //   [
@@ -77,7 +70,7 @@ export class LangChainService {
       answerPrompt,
     ])
 
-    const res = await chain.invoke({ question: prompt })
+    const res = await chain.invoke({ question: `${prompt} put` })
 
     return res;
   }

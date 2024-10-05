@@ -68,8 +68,10 @@
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "langchain": "^0.3.2",
+    "pg": "^8.13.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
+    "typeorm": "^0.3.20",
     "zone.js": "~0.14.3"
   }
 }
